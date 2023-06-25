@@ -1,2 +1,10 @@
 *.tex
 *.gz
+target
+.vscode
+progetto_ldb.aux
+progetto_ldb.fdb_latexmk
+progetto_ldb.fls
+progetto_ldb.log
+progetto_ldb.out
+progetto_ldb.toc

@@ -1,0 +1,7 @@
+.button {
+    -fx-pref-width: 200px;
+    -fx-background-color: #fba855;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
