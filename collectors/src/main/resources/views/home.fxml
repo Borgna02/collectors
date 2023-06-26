@@ -6,14 +6,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
 <HBox minHeight="500.0" minWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="borgna.daniele.controller.HomeController">
    <children>
       <VBox spacing="3.0" stylesheets="@styles.css">
          <Button fx:id="operazione1Button" onAction="#operazione1" text="OPERAZIONE 1" />
          <Button fx:id="operazione2aButton" onAction="#operazione2a" text="OPERAZIONE 2a" />
-         <Button fx:id="operazione2bButton" onAction="#operazione2b" text="OPERAZIONE 2b" />
-         <Button fx:id="operazione2cButton" onAction="#operazione2c" text="OPERAZIONE 2c" />
          <Button fx:id="operazione2dButton" onAction="#operazione2d" text="OPERAZIONE 2d" />
          <Button fx:id="operazione2eButton" onAction="#operazione2e" text="OPERAZIONE 2e" />
          <Button fx:id="operazione2fButton" onAction="#operazione2f" text="OPERAZIONE 2f" />
@@ -36,21 +35,56 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="7.0">
                <children>
-                  <TextField fx:id="parametro1" promptText="Parametro 1" />
-                  <TextField fx:id="parametro2" layoutX="10.0" layoutY="10.0" promptText="Parametro 2" />
-                  <TextField fx:id="parametro3" layoutX="10.0" layoutY="10.0" promptText="Parametro 3" />
+                  <VBox alignment="CENTER_LEFT" spacing="5.0">
+                     <children>
+                        <Text fx:id="labelP1" strokeType="OUTSIDE" strokeWidth="0.0" text="Parametro 1" />
+                        <TextField fx:id="parametro1" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" spacing="5.0">
+                     <children>
+                        <Text fx:id="labelP2" strokeType="OUTSIDE" strokeWidth="0.0" text="Parametro 2" />
+                        <TextField fx:id="parametro2" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" spacing="5.0">
+                     <children>
+                        <Text fx:id="labelP3" strokeType="OUTSIDE" strokeWidth="0.0" text="Parametro 3" />
+                        <TextField fx:id="parametro3" />
+                     </children>
+                  </VBox>
                </children>
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="7.0">
                <children>
-                  <TextField fx:id="parametro4" promptText="Parametro 4" />
-                  <TextField fx:id="parametro5" layoutX="10.0" layoutY="10.0" promptText="Parametro 5" />
-                  <TextField fx:id="parametro6" layoutX="10.0" layoutY="10.0" promptText="Parametro 6" />
+                  <VBox alignment="CENTER_LEFT" spacing="5.0">
+                     <children>
+                        <Text fx:id="labelP4" strokeType="OUTSIDE" strokeWidth="0.0" text="Parametro 4" />
+                        <TextField fx:id="parametro4" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" layoutX="28.0" layoutY="10.0" spacing="5.0">
+                     <children>
+                        <Text fx:id="labelP5" strokeType="OUTSIDE" strokeWidth="0.0" text="Parametro 5" />
+                        <TextField fx:id="parametro5" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" layoutX="391.0" layoutY="10.0" spacing="5.0">
+                     <children>
+                        <Text fx:id="labelP6" strokeType="OUTSIDE" strokeWidth="0.0" text="Parametro 6" />
+                        <TextField fx:id="parametro6" />
+                     </children>
+                  </VBox>
                </children>
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="106.0" prefHeight="100.0" prefWidth="200.0" spacing="7.0">
                <children>
-                  <TextField fx:id="parametro7" promptText="Parametro 7" />
+                  <VBox alignment="CENTER_LEFT" spacing="5.0">
+                     <children>
+                        <Text fx:id="labelP7" strokeType="OUTSIDE" strokeWidth="0.0" text="Parametro 7" />
+                        <TextField fx:id="parametro7" />
+                     </children>
+                  </VBox>
                   <CheckBox fx:id="booleano1" mnemonicParsing="false" text="Booleano 1" />
                   <CheckBox fx:id="booleano2" mnemonicParsing="false" text="Booleano 2" />
                   <CheckBox fx:id="booleano3" layoutX="260.0" layoutY="40.0" mnemonicParsing="false" text="Booleano 3" />
