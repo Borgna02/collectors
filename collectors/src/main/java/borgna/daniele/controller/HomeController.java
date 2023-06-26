@@ -110,7 +110,7 @@ public class HomeController implements Initializable {
             rslt = stmt.executeQuery(
                     "SELECT C.*, CO.nickname FROM Collezione C, Collezionista CO WHERE C.id_collezionista = CO.id ORDER BY C.id");
 
-            String resultString = "ID, NOME, ISPUBBLICA, OWNER \\n";
+            String resultString = "ID, NOME, ISPUBBLICA, OWNER \n\n";
             while (rslt.next()) {
                 resultString += rslt.getString(1) + "; " + rslt.getString(2) + "; " + rslt.getString(3)
                         + "; "
@@ -748,27 +748,341 @@ public class HomeController implements Initializable {
 
     @FXML
     private void operazione6(ActionEvent event) {
-        // Logica per l'operazione 6
+        reset();
+        labelP1.setText("Nickname Owner");
+        labelP2.setText("Nome collezione");
+        parametro3.setDisable(true);
+        parametro4.setDisable(true);
+        parametro5.setDisable(true);
+        parametro6.setDisable(true);
+        parametro7.setDisable(true);
+        booleano1.setDisable(true);
+        booleano2.setDisable(true);
+        booleano3.setDisable(true);
+
+        operazioneCorrente = "operazione6";
+
+        query = "{CALL DischiInCollezione(?, ?)}";
+
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rslt = null;
+        try {
+            // inserisco nel box "prima" la tabella prima della query
+            con = DriverManager.getConnection(connectionString, username, password);
+            stmt = con.createStatement();
+            rslt = stmt.executeQuery(
+                    "SELECT C.*, CO.nickname FROM Collezione C, Collezionista CO WHERE C.id_collezionista = CO.id ORDER BY C.id");
+
+            String resultString = "ID, NOME, ISPUBBLICA, OWNER \n\n";
+            while (rslt.next()) {
+                resultString += rslt.getString(1) + "; " + rslt.getString(2) + "; " + rslt.getString(3)
+                        + "; "
+                        + rslt.getString(5) + "\n";
+            }
+
+            primaTextArea.setText(resultString);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rslt != null) {
+                try {
+                    rslt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
     }
 
     @FXML
     private void operazione7(ActionEvent event) {
-        // Logica per l'operazione 7
+        reset();
+        labelP1.setText("EAN disco");
+        parametro2.setDisable(true);
+        parametro3.setDisable(true);
+        parametro4.setDisable(true);
+        parametro5.setDisable(true);
+        parametro6.setDisable(true);
+        parametro7.setDisable(true);
+        booleano1.setDisable(true);
+        booleano2.setDisable(true);
+        booleano3.setDisable(true);
+
+        operazioneCorrente = "operazione7";
+
+        query = "{CALL TrackList(?)}";
+
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rslt = null;
+        try {
+            // inserisco nel box "prima" la tabella prima della query
+            con = DriverManager.getConnection(connectionString, username, password);
+            stmt = con.createStatement();
+            rslt = stmt.executeQuery(
+                    "CALL DischiAutori()");
+
+            String resultString = "DISCO, EAN, FORMATO, AUTORE PRINCIPALE \n\n";
+            while (rslt.next()) {
+                resultString += rslt.getString(1) + "; " + rslt.getString(2) + "; " + rslt.getString(3)
+                        + "; "
+                        + rslt.getString(4) + "\n";
+            }
+
+            primaTextArea.setText(resultString);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rslt != null) {
+                try {
+                    rslt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
     }
 
     @FXML
     private void operazione8(ActionEvent event) {
-        // Logica per l'operazione 8
+        reset();
+        labelP1.setText("Nome autore");
+        parametro1.setText("null");
+        labelP2.setText("Titolo disco");
+        parametro2.setText("null");
+        labelP3.setText("Nome collezionista");
+        parametro4.setDisable(true);
+        parametro5.setDisable(true);
+        parametro6.setDisable(true);
+        parametro7.setDisable(true);
+
+        booleano1.setText("Private");
+        booleano2.setText("Condivise");
+        booleano3.setText("Pubbliche");
+
+        operazioneCorrente = "operazione8";
+
+        query = "{CALL RicercaDischi(?,?,?,?,?,?)}";
+
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rslt = null;
+        try {
+            // inserisco nel box "prima" la tabella prima della query
+            con = DriverManager.getConnection(connectionString, username, password);
+            stmt = con.createStatement();
+            rslt = stmt.executeQuery(
+                    "CALL CollezioniCopie()");
+
+            String resultString = "COLLEZIONISTA, COLLEZIONE, SN, STATO, DOPPIONI, ISPUBBLICA, DISCO, EAN, AUTORE \n\n";
+            while (rslt.next()) {
+                resultString += rslt.getString(1) + "; " + rslt.getString(2) + "; " + rslt.getString(3)
+                        + "; "
+                        + rslt.getString(4) + "; " + rslt.getString(5) + "; " + rslt.getString(6) + "; "
+                        + rslt.getString(7) + "; " + rslt.getString(8) + "; " + rslt.getString(9)
+                        + "\n";
+            }
+
+            primaTextArea.setText(resultString);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rslt != null) {
+                try {
+                    rslt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
     }
 
     @FXML
     private void operazione9(ActionEvent event) {
-        // Logica per l'operazione 9
+        reset();
+        labelP1.setText("Nome collezione");
+        labelP2.setText("Nickname owner");
+        labelP3.setText("Nickname guest");
+        parametro4.setDisable(true);
+        parametro5.setDisable(true);
+        parametro6.setDisable(true);
+        parametro7.setDisable(true);
+
+        booleano1.setDisable(true);
+        booleano2.setDisable(true);
+        booleano3.setDisable(true);
+
+        operazioneCorrente = "operazione9";
+
+        query = "{CALL CheckVisibilita(?,?,?)}";
+
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rslt = null;
+        try {
+            // inserisco nel box "prima" la tabella prima della query
+            con = DriverManager.getConnection(connectionString, username, password);
+            stmt = con.createStatement();
+            rslt = stmt.executeQuery(
+                    "CALL Condivisioni()");
+
+            String resultString = "OWNER, COLLEZIONE, GUEST \n\n";
+            while (rslt.next()) {
+                resultString += rslt.getString(1) + "; " + rslt.getString(2) + "; " + rslt.getString(3)
+                        + "\n";
+            }
+
+            primaTextArea.setText(resultString);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rslt != null) {
+                try {
+                    rslt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
     }
 
     @FXML
     private void operazione10(ActionEvent event) {
-        // Logica per l'operazione 10
+        reset();
+        labelP1.setText("Autore");
+        parametro2.setDisable(true);
+        parametro3.setDisable(true);
+        parametro4.setDisable(true);
+        parametro5.setDisable(true);
+        parametro6.setDisable(true);
+        parametro7.setDisable(true);
+
+        booleano1.setDisable(true);
+        booleano2.setDisable(true);
+        booleano3.setDisable(true);
+
+        operazioneCorrente = "operazione10";
+
+        query = "{CALL ContaBraniByAutore(?)}";
+
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rslt = null;
+        try {
+            // inserisco nel box "prima" la tabella prima della query
+            con = DriverManager.getConnection(connectionString, username, password);
+            stmt = con.createStatement();
+            rslt = stmt.executeQuery(
+                    "CALL CollezioniCopie()");
+
+            String resultString = "COLLEZIONISTA, COLLEZIONE, SN, STATO, DOPPIONI, ISPUBBLICA, DISCO, EAN, AUTORE \n\n";
+            while (rslt.next()) {
+                resultString += rslt.getString(1) + "; " + rslt.getString(2) + "; " + rslt.getString(3)
+                        + "; "
+                        + rslt.getString(4) + "; " + rslt.getString(5) + "; " + rslt.getString(6) + "; "
+                        + rslt.getString(7) + "; " + rslt.getString(8) + "; " + rslt.getString(9) + "\n";
+            }
+
+            primaTextArea.setText(resultString);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rslt != null) {
+                try {
+                    rslt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
     }
 
     @FXML
@@ -845,7 +1159,7 @@ public class HomeController implements Initializable {
                     }
                     if (!error) {
                         try {
-                            // inserisco nel box "dopo" la tabella dopo della query
+                            // inserisco nel box "dopo" la tabella dopo la query
                             con = DriverManager.getConnection(connectionString, username, password);
                             stmt = con.createStatement();
                             rslt = stmt.executeQuery(
@@ -941,7 +1255,7 @@ public class HomeController implements Initializable {
 
                     if (!error) {
                         try {
-                            // inserisco nel box "dopo" la tabella dopo della query
+                            // inserisco nel box "dopo" la tabella dopo la query
                             con = DriverManager.getConnection(connectionString, username, password);
                             stmt = con.createStatement();
                             rslt = stmt.executeQuery(
@@ -1033,7 +1347,7 @@ public class HomeController implements Initializable {
 
                     if (!error) {
                         try {
-                            // inserisco nel box "dopo" la tabella dopo della query
+                            // inserisco nel box "dopo" la tabella dopo la query
                             con = DriverManager.getConnection(connectionString, username, password);
                             stmt = con.createStatement();
 
@@ -1124,7 +1438,7 @@ public class HomeController implements Initializable {
 
                     if (!error) {
                         try {
-                            // inserisco nel box "dopo" la tabella dopo della query
+                            // inserisco nel box "dopo" la tabella dopo la query
                             con = DriverManager.getConnection(connectionString, username, password);
                             stmt = con.createStatement();
 
@@ -1221,7 +1535,7 @@ public class HomeController implements Initializable {
 
                     if (!error) {
                         try {
-                            // inserisco nel box "dopo" la tabella dopo della query
+                            // inserisco nel box "dopo" la tabella dopo la query
                             con = DriverManager.getConnection(connectionString, username, password);
                             stmt = con.createStatement();
                             rslt = stmt.executeQuery(
@@ -1310,7 +1624,7 @@ public class HomeController implements Initializable {
 
                     if (!error) {
                         try {
-                            // inserisco nel box "dopo" la tabella dopo della query
+                            // inserisco nel box "dopo" la tabella dopo la query
                             con = DriverManager.getConnection(connectionString, username, password);
                             stmt = con.createStatement();
                             rslt = stmt.executeQuery(
@@ -1400,7 +1714,7 @@ public class HomeController implements Initializable {
 
                     if (!error) {
                         try {
-                            // inserisco nel box "dopo" la tabella dopo della query
+                            // inserisco nel box "dopo" la tabella dopo la query
                             con = DriverManager.getConnection(connectionString, username, password);
                             stmt = con.createStatement();
 
@@ -1490,7 +1804,7 @@ public class HomeController implements Initializable {
 
                     if (!error) {
                         try {
-                            // inserisco nel box "dopo" la tabella dopo della query
+                            // inserisco nel box "dopo" la tabella dopo la query
                             con = DriverManager.getConnection(connectionString, username, password);
                             stmt = con.createStatement();
 
@@ -1578,7 +1892,7 @@ public class HomeController implements Initializable {
 
                     if (!error) {
                         try {
-                            // inserisco nel box "dopo" la tabella dopo della query
+                            // inserisco nel box "dopo" la tabella dopo la query
                             con = DriverManager.getConnection(connectionString, username, password);
                             stmt = con.createStatement();
 
@@ -1669,7 +1983,7 @@ public class HomeController implements Initializable {
 
                     if (!error) {
                         try {
-                            // inserisco nel box "dopo" la tabella dopo della query
+                            // inserisco nel box "dopo" la tabella dopo la query
                             con = DriverManager.getConnection(connectionString, username, password);
                             stmt = con.createStatement();
 
@@ -1718,29 +2032,30 @@ public class HomeController implements Initializable {
 
             case "operazione6":
                 if (parametro1.getText().isEmpty() || parametro2.getText().isEmpty()) {
-                    primaTextArea.setText("RIEMPIRE TUTTI I CAMPI");
+                    dopoTextArea.setText("RIEMPIRE TUTTI I CAMPI");
                 } else {
-                    Boolean error = false;
                     Connection con = null;
                     Statement stmt = null;
                     CallableStatement cllstmt = null;
                     ResultSet rslt = null;
-                    try {
-                        // inserisco nel box "prima" la tabella prima della query
-                        con = DriverManager.getConnection(connectionString, username, password);
-                        stmt = con.createStatement();
-                        rslt = stmt.executeQuery(
-                                "CALL CollezioniCopie()");
 
-                        String resultString = "COLLEZIONISTA, COLLEZIONE, SN, STATO, DOPPIONI, ISPUBBLICA, DISCO, EAN, AUTORE \n\n";
+                    try {
+                        // inserisco nel box "dopo" la tabella dopo la query
+                        con = DriverManager.getConnection(connectionString, username, password);
+
+                        cllstmt = con.prepareCall(query);
+
+                        cllstmt.setString(1, parametro1.getText());
+                        cllstmt.setString(2, parametro2.getText());
+
+                        rslt = cllstmt.executeQuery();
+
+                        String resultString = "DISCO, EAN \n\n";
                         while (rslt.next()) {
-                            resultString += rslt.getString(1) + "; " + rslt.getString(2) + "; " + rslt.getString(3)
-                                    + "; "
-                                    + rslt.getString(4) + "; " + rslt.getString(5) + "; " + rslt.getString(6) + "; "
-                                    + rslt.getString(7) + "; " + rslt.getString(8) + "; " + rslt.getString(9) + "\n";
+                            resultString += rslt.getString(3) + "; " + rslt.getString(2) + "\n";
                         }
 
-                        primaTextArea.setText(resultString);
+                        dopoTextArea.setText(resultString);
 
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -1768,114 +2083,36 @@ public class HomeController implements Initializable {
                             }
                         }
 
-                    }
-
-                    try {
-                        con = DriverManager.getConnection(connectionString, username, password);
-                        cllstmt = con.prepareCall(query);
-
-                        cllstmt.setString(1, parametro1.getText());
-                        cllstmt.setString(2, parametro2.getText());
-
-                        cllstmt.execute();
-                    } catch (SQLException e) {
-                        primaTextArea.setText(e.getMessage());
-                        error = true;
-                    } finally {
-                        if (cllstmt != null) {
-                            try {
-                                stmt.close();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        if (con != null) {
-                            try {
-                                con.close();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                    }
-
-                    if (!error) {
-                        try {
-                            // inserisco nel box "dopo" la tabella dopo della query
-                            con = DriverManager.getConnection(connectionString, username, password);
-                            stmt = con.createStatement();
-
-                            rslt = stmt.executeQuery(
-                                    "CALL CollezioniCopie()");
-
-                            String resultString = "COLLEZIONISTA, COLLEZIONE, SN, STATO, DOPPIONI, ISPUBBLICA, DISCO, EAN, AUTORE \n\n";
-                            while (rslt.next()) {
-                                resultString += rslt.getString(1) + "; " + rslt.getString(2) + "; " + rslt.getString(3)
-                                        + "; "
-                                        + rslt.getString(4) + "; " + rslt.getString(5) + "; " + rslt.getString(6) + "; "
-                                        + rslt.getString(7) + "; " + rslt.getString(8) + "; " + rslt.getString(9)
-                                        + "\n";
-                            }
-
-                            dopoTextArea.setText(resultString);
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        } finally {
-                            if (rslt != null) {
-                                try {
-                                    rslt.close();
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            if (stmt != null) {
-                                try {
-                                    stmt.close();
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            if (con != null) {
-                                try {
-                                    con.close();
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                        }
                     }
                 }
                 break;
 
             case "operazione7":
-                if (parametro1.getText().isEmpty() || parametro2.getText().isEmpty()) {
-                    primaTextArea.setText("RIEMPIRE TUTTI I CAMPI");
+                if (parametro1.getText().isEmpty()) {
+                    dopoTextArea.setText("RIEMPIRE TUTTI I CAMPI");
                 } else {
-                    Boolean error = false;
                     Connection con = null;
                     Statement stmt = null;
                     CallableStatement cllstmt = null;
                     ResultSet rslt = null;
-                    try {
-                        // inserisco nel box "prima" la tabella prima della query
-                        con = DriverManager.getConnection(connectionString, username, password);
-                        stmt = con.createStatement();
-                        rslt = stmt.executeQuery(
-                                "CALL CollezioniCopie()");
 
-                        String resultString = "COLLEZIONISTA, COLLEZIONE, SN, STATO, DOPPIONI, ISPUBBLICA, DISCO, EAN, AUTORE \n\n";
+                    try {
+                        // inserisco nel box "dopo" la tabella dopo la query
+                        con = DriverManager.getConnection(connectionString, username, password);
+
+                        cllstmt = con.prepareCall(query);
+
+                        cllstmt.setString(1, parametro1.getText());
+
+                        rslt = cllstmt.executeQuery();
+
+                        String resultString = "TRACCIA, ISRC, DURATA \n\n";
                         while (rslt.next()) {
-                            resultString += rslt.getString(1) + "; " + rslt.getString(2) + "; " + rslt.getString(3)
-                                    + "; "
-                                    + rslt.getString(4) + "; " + rslt.getString(5) + "; " + rslt.getString(6) + "; "
-                                    + rslt.getString(7) + "; " + rslt.getString(8) + "; " + rslt.getString(9) + "\n";
+                            resultString += rslt.getString(2) + "; " + rslt.getString(3) + "; " + rslt.getString(4)
+                                    + "\n";
                         }
 
-                        primaTextArea.setText(resultString);
+                        dopoTextArea.setText(resultString);
 
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -1903,114 +2140,48 @@ public class HomeController implements Initializable {
                             }
                         }
 
-                    }
-
-                    try {
-                        con = DriverManager.getConnection(connectionString, username, password);
-                        cllstmt = con.prepareCall(query);
-
-                        cllstmt.setString(1, parametro1.getText());
-                        cllstmt.setString(2, parametro2.getText());
-
-                        cllstmt.execute();
-                    } catch (SQLException e) {
-                        primaTextArea.setText(e.getMessage());
-                        error = true;
-                    } finally {
-                        if (cllstmt != null) {
-                            try {
-                                stmt.close();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        if (con != null) {
-                            try {
-                                con.close();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                    }
-
-                    if (!error) {
-                        try {
-                            // inserisco nel box "dopo" la tabella dopo della query
-                            con = DriverManager.getConnection(connectionString, username, password);
-                            stmt = con.createStatement();
-
-                            rslt = stmt.executeQuery(
-                                    "CALL CollezioniCopie()");
-
-                            String resultString = "COLLEZIONISTA, COLLEZIONE, SN, STATO, DOPPIONI, ISPUBBLICA, DISCO, EAN, AUTORE \n\n";
-                            while (rslt.next()) {
-                                resultString += rslt.getString(1) + "; " + rslt.getString(2) + "; " + rslt.getString(3)
-                                        + "; "
-                                        + rslt.getString(4) + "; " + rslt.getString(5) + "; " + rslt.getString(6) + "; "
-                                        + rslt.getString(7) + "; " + rslt.getString(8) + "; " + rslt.getString(9)
-                                        + "\n";
-                            }
-
-                            dopoTextArea.setText(resultString);
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        } finally {
-                            if (rslt != null) {
-                                try {
-                                    rslt.close();
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            if (stmt != null) {
-                                try {
-                                    stmt.close();
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            if (con != null) {
-                                try {
-                                    con.close();
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                        }
                     }
                 }
                 break;
 
             case "operazione8":
-                if (parametro1.getText().isEmpty() || parametro2.getText().isEmpty()) {
-                    primaTextArea.setText("RIEMPIRE TUTTI I CAMPI");
+                if (parametro1.getText().isEmpty() || parametro2.getText().isEmpty()
+                        || parametro3.getText().isEmpty()) {
+                    dopoTextArea.setText("RIEMPIRE TUTTI I CAMPI");
                 } else {
-                    Boolean error = false;
                     Connection con = null;
                     Statement stmt = null;
                     CallableStatement cllstmt = null;
                     ResultSet rslt = null;
-                    try {
-                        // inserisco nel box "prima" la tabella prima della query
-                        con = DriverManager.getConnection(connectionString, username, password);
-                        stmt = con.createStatement();
-                        rslt = stmt.executeQuery(
-                                "CALL CollezioniCopie()");
 
-                        String resultString = "COLLEZIONISTA, COLLEZIONE, SN, STATO, DOPPIONI, ISPUBBLICA, DISCO, EAN, AUTORE \n\n";
+                    try {
+                        // inserisco nel box "dopo" la tabella dopo la query
+                        con = DriverManager.getConnection(connectionString, username, password);
+
+                        cllstmt = con.prepareCall(query);
+
+                        if (parametro1.getText().equals("null"))
+                            cllstmt.setString(1, null);
+                        else
+                            cllstmt.setString(1, parametro1.getText());
+                        if (parametro2.getText().equals("null"))
+                            cllstmt.setString(2, null);
+                        else
+                            cllstmt.setString(2, parametro2.getText());
+
+                        cllstmt.setString(3, parametro3.getText());
+                        cllstmt.setBoolean(4, booleano1.selectedProperty().getValue());
+                        cllstmt.setBoolean(5, booleano2.selectedProperty().getValue());
+                        cllstmt.setBoolean(6, booleano3.selectedProperty().getValue());
+
+                        rslt = cllstmt.executeQuery();
+
+                        String resultString = "DISCO, EAN \n\n";
                         while (rslt.next()) {
-                            resultString += rslt.getString(1) + "; " + rslt.getString(2) + "; " + rslt.getString(3)
-                                    + "; "
-                                    + rslt.getString(4) + "; " + rslt.getString(5) + "; " + rslt.getString(6) + "; "
-                                    + rslt.getString(7) + "; " + rslt.getString(8) + "; " + rslt.getString(9) + "\n";
+                            resultString += rslt.getString(3) + "; " + rslt.getString(2) + "\n";
                         }
 
-                        primaTextArea.setText(resultString);
+                        dopoTextArea.setText(resultString);
 
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -2038,114 +2209,39 @@ public class HomeController implements Initializable {
                             }
                         }
 
-                    }
-
-                    try {
-                        con = DriverManager.getConnection(connectionString, username, password);
-                        cllstmt = con.prepareCall(query);
-
-                        cllstmt.setString(1, parametro1.getText());
-                        cllstmt.setString(2, parametro2.getText());
-
-                        cllstmt.execute();
-                    } catch (SQLException e) {
-                        primaTextArea.setText(e.getMessage());
-                        error = true;
-                    } finally {
-                        if (cllstmt != null) {
-                            try {
-                                stmt.close();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        if (con != null) {
-                            try {
-                                con.close();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                    }
-
-                    if (!error) {
-                        try {
-                            // inserisco nel box "dopo" la tabella dopo della query
-                            con = DriverManager.getConnection(connectionString, username, password);
-                            stmt = con.createStatement();
-
-                            rslt = stmt.executeQuery(
-                                    "CALL CollezioniCopie()");
-
-                            String resultString = "COLLEZIONISTA, COLLEZIONE, SN, STATO, DOPPIONI, ISPUBBLICA, DISCO, EAN, AUTORE \n\n";
-                            while (rslt.next()) {
-                                resultString += rslt.getString(1) + "; " + rslt.getString(2) + "; " + rslt.getString(3)
-                                        + "; "
-                                        + rslt.getString(4) + "; " + rslt.getString(5) + "; " + rslt.getString(6) + "; "
-                                        + rslt.getString(7) + "; " + rslt.getString(8) + "; " + rslt.getString(9)
-                                        + "\n";
-                            }
-
-                            dopoTextArea.setText(resultString);
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        } finally {
-                            if (rslt != null) {
-                                try {
-                                    rslt.close();
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            if (stmt != null) {
-                                try {
-                                    stmt.close();
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            if (con != null) {
-                                try {
-                                    con.close();
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                        }
                     }
                 }
                 break;
 
             case "operazione9":
-                if (parametro1.getText().isEmpty() || parametro2.getText().isEmpty()) {
-                    primaTextArea.setText("RIEMPIRE TUTTI I CAMPI");
+                if (parametro1.getText().isEmpty() || parametro2.getText().isEmpty()
+                        || parametro3.getText().isEmpty()) {
+                    dopoTextArea.setText("RIEMPIRE TUTTI I CAMPI");
                 } else {
-                    Boolean error = false;
                     Connection con = null;
                     Statement stmt = null;
                     CallableStatement cllstmt = null;
                     ResultSet rslt = null;
-                    try {
-                        // inserisco nel box "prima" la tabella prima della query
-                        con = DriverManager.getConnection(connectionString, username, password);
-                        stmt = con.createStatement();
-                        rslt = stmt.executeQuery(
-                                "CALL CollezioniCopie()");
 
-                        String resultString = "COLLEZIONISTA, COLLEZIONE, SN, STATO, DOPPIONI, ISPUBBLICA, DISCO, EAN, AUTORE \n\n";
+                    try {
+                        // inserisco nel box "dopo" la tabella dopo la query
+                        con = DriverManager.getConnection(connectionString, username, password);
+
+                        cllstmt = con.prepareCall(query);
+
+                        cllstmt.setString(1, parametro1.getText());
+                        cllstmt.setString(2, parametro2.getText());
+
+                        cllstmt.setString(3, parametro3.getText());
+
+                        rslt = cllstmt.executeQuery();
+
+                        String resultString = "";
                         while (rslt.next()) {
-                            resultString += rslt.getString(1) + "; " + rslt.getString(2) + "; " + rslt.getString(3)
-                                    + "; "
-                                    + rslt.getString(4) + "; " + rslt.getString(5) + "; " + rslt.getString(6) + "; "
-                                    + rslt.getString(7) + "; " + rslt.getString(8) + "; " + rslt.getString(9) + "\n";
+                            resultString += rslt.getString(1) + "\n";
                         }
 
-                        primaTextArea.setText(resultString);
+                        dopoTextArea.setText(resultString);
 
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -2173,114 +2269,35 @@ public class HomeController implements Initializable {
                             }
                         }
 
-                    }
-
-                    try {
-                        con = DriverManager.getConnection(connectionString, username, password);
-                        cllstmt = con.prepareCall(query);
-
-                        cllstmt.setString(1, parametro1.getText());
-                        cllstmt.setString(2, parametro2.getText());
-
-                        cllstmt.execute();
-                    } catch (SQLException e) {
-                        primaTextArea.setText(e.getMessage());
-                        error = true;
-                    } finally {
-                        if (cllstmt != null) {
-                            try {
-                                stmt.close();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        if (con != null) {
-                            try {
-                                con.close();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                    }
-
-                    if (!error) {
-                        try {
-                            // inserisco nel box "dopo" la tabella dopo della query
-                            con = DriverManager.getConnection(connectionString, username, password);
-                            stmt = con.createStatement();
-
-                            rslt = stmt.executeQuery(
-                                    "CALL CollezioniCopie()");
-
-                            String resultString = "COLLEZIONISTA, COLLEZIONE, SN, STATO, DOPPIONI, ISPUBBLICA, DISCO, EAN, AUTORE \n\n";
-                            while (rslt.next()) {
-                                resultString += rslt.getString(1) + "; " + rslt.getString(2) + "; " + rslt.getString(3)
-                                        + "; "
-                                        + rslt.getString(4) + "; " + rslt.getString(5) + "; " + rslt.getString(6) + "; "
-                                        + rslt.getString(7) + "; " + rslt.getString(8) + "; " + rslt.getString(9)
-                                        + "\n";
-                            }
-
-                            dopoTextArea.setText(resultString);
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        } finally {
-                            if (rslt != null) {
-                                try {
-                                    rslt.close();
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            if (stmt != null) {
-                                try {
-                                    stmt.close();
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            if (con != null) {
-                                try {
-                                    con.close();
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                        }
                     }
                 }
                 break;
 
             case "operazione10":
-                if (parametro1.getText().isEmpty() || parametro2.getText().isEmpty()) {
-                    primaTextArea.setText("RIEMPIRE TUTTI I CAMPI");
+                if (parametro1.getText().isEmpty()) {
+                    dopoTextArea.setText("RIEMPIRE TUTTI I CAMPI");
                 } else {
-                    Boolean error = false;
                     Connection con = null;
                     Statement stmt = null;
                     CallableStatement cllstmt = null;
                     ResultSet rslt = null;
-                    try {
-                        // inserisco nel box "prima" la tabella prima della query
-                        con = DriverManager.getConnection(connectionString, username, password);
-                        stmt = con.createStatement();
-                        rslt = stmt.executeQuery(
-                                "CALL CollezioniCopie()");
 
-                        String resultString = "COLLEZIONISTA, COLLEZIONE, SN, STATO, DOPPIONI, ISPUBBLICA, DISCO, EAN, AUTORE \n\n";
+                    try {
+                        // inserisco nel box "dopo" la tabella dopo la query
+                        con = DriverManager.getConnection(connectionString, username, password);
+
+                        cllstmt = con.prepareCall(query);
+
+                        cllstmt.setString(1, parametro1.getText());
+                        
+                        rslt = cllstmt.executeQuery();
+
+                        String resultString = "";
                         while (rslt.next()) {
-                            resultString += rslt.getString(1) + "; " + rslt.getString(2) + "; " + rslt.getString(3)
-                                    + "; "
-                                    + rslt.getString(4) + "; " + rslt.getString(5) + "; " + rslt.getString(6) + "; "
-                                    + rslt.getString(7) + "; " + rslt.getString(8) + "; " + rslt.getString(9) + "\n";
+                            resultString += rslt.getString(1) + "\n";
                         }
 
-                        primaTextArea.setText(resultString);
+                        dopoTextArea.setText(resultString);
 
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -2308,92 +2325,13 @@ public class HomeController implements Initializable {
                             }
                         }
 
-                    }
-
-                    try {
-                        con = DriverManager.getConnection(connectionString, username, password);
-                        cllstmt = con.prepareCall(query);
-
-                        cllstmt.setString(1, parametro1.getText());
-                        cllstmt.setString(2, parametro2.getText());
-
-                        cllstmt.execute();
-                    } catch (SQLException e) {
-                        primaTextArea.setText(e.getMessage());
-                        error = true;
-                    } finally {
-                        if (cllstmt != null) {
-                            try {
-                                stmt.close();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        if (con != null) {
-                            try {
-                                con.close();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                    }
-
-                    if (!error) {
-                        try {
-                            // inserisco nel box "dopo" la tabella dopo della query
-                            con = DriverManager.getConnection(connectionString, username, password);
-                            stmt = con.createStatement();
-
-                            rslt = stmt.executeQuery(
-                                    "CALL CollezioniCopie()");
-
-                            String resultString = "COLLEZIONISTA, COLLEZIONE, SN, STATO, DOPPIONI, ISPUBBLICA, DISCO, EAN, AUTORE \n\n";
-                            while (rslt.next()) {
-                                resultString += rslt.getString(1) + "; " + rslt.getString(2) + "; " + rslt.getString(3)
-                                        + "; "
-                                        + rslt.getString(4) + "; " + rslt.getString(5) + "; " + rslt.getString(6) + "; "
-                                        + rslt.getString(7) + "; " + rslt.getString(8) + "; " + rslt.getString(9)
-                                        + "\n";
-                            }
-
-                            dopoTextArea.setText(resultString);
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        } finally {
-                            if (rslt != null) {
-                                try {
-                                    rslt.close();
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            if (stmt != null) {
-                                try {
-                                    stmt.close();
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            if (con != null) {
-                                try {
-                                    con.close();
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                        }
                     }
                 }
                 break;
 
             case "operazione11":
                 if (parametro1.getText().isEmpty() || parametro2.getText().isEmpty()) {
-                    primaTextArea.setText("RIEMPIRE TUTTI I CAMPI");
+                    dopoTextArea.setText("RIEMPIRE TUTTI I CAMPI");
                 } else {
                     Boolean error = false;
                     Connection con = null;
@@ -2477,7 +2415,7 @@ public class HomeController implements Initializable {
 
                     if (!error) {
                         try {
-                            // inserisco nel box "dopo" la tabella dopo della query
+                            // inserisco nel box "dopo" la tabella dopo la query
                             con = DriverManager.getConnection(connectionString, username, password);
                             stmt = con.createStatement();
 
@@ -2528,7 +2466,7 @@ public class HomeController implements Initializable {
 
             case "operazione12a":
                 if (parametro1.getText().isEmpty() || parametro2.getText().isEmpty()) {
-                    primaTextArea.setText("RIEMPIRE TUTTI I CAMPI");
+                    dopoTextArea.setText("RIEMPIRE TUTTI I CAMPI");
                 } else {
                     Boolean error = false;
                     Connection con = null;
@@ -2612,7 +2550,7 @@ public class HomeController implements Initializable {
 
                     if (!error) {
                         try {
-                            // inserisco nel box "dopo" la tabella dopo della query
+                            // inserisco nel box "dopo" la tabella dopo la query
                             con = DriverManager.getConnection(connectionString, username, password);
                             stmt = con.createStatement();
 
@@ -2663,7 +2601,7 @@ public class HomeController implements Initializable {
 
             case "operazione12b":
                 if (parametro1.getText().isEmpty() || parametro2.getText().isEmpty()) {
-                    primaTextArea.setText("RIEMPIRE TUTTI I CAMPI");
+                    dopoTextArea.setText("RIEMPIRE TUTTI I CAMPI");
                 } else {
                     Boolean error = false;
                     Connection con = null;
@@ -2747,7 +2685,7 @@ public class HomeController implements Initializable {
 
                     if (!error) {
                         try {
-                            // inserisco nel box "dopo" la tabella dopo della query
+                            // inserisco nel box "dopo" la tabella dopo la query
                             con = DriverManager.getConnection(connectionString, username, password);
                             stmt = con.createStatement();
 
@@ -2798,7 +2736,7 @@ public class HomeController implements Initializable {
 
             case "operazione13":
                 if (parametro1.getText().isEmpty() || parametro2.getText().isEmpty()) {
-                    primaTextArea.setText("RIEMPIRE TUTTI I CAMPI");
+                    dopoTextArea.setText("RIEMPIRE TUTTI I CAMPI");
                 } else {
                     Boolean error = false;
                     Connection con = null;
@@ -2882,7 +2820,7 @@ public class HomeController implements Initializable {
 
                     if (!error) {
                         try {
-                            // inserisco nel box "dopo" la tabella dopo della query
+                            // inserisco nel box "dopo" la tabella dopo la query
                             con = DriverManager.getConnection(connectionString, username, password);
                             stmt = con.createStatement();
 

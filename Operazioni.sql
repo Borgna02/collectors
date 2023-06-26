@@ -454,9 +454,9 @@ BEGIN
 		SELECT DISTINCT D.* FROM Disco D, collabora C WHERE 
         ((p_titolo IS NOT NULL AND p_id_autore IS NULL AND D.titolo LIKE CONCAT('%', p_titolo, '%')) 
 		OR 
-        (p_id_autore IS NOT NULL AND p_titolo IS NULL AND C.id_autore = p_id_autore AND D.id = C.id_disco) 
+        (p_id_autore IS NOT NULL AND p_titolo IS NULL AND ((C.id_autore = p_id_autore AND D.id = C.id_disco) OR (D.id_autore = p_id_autore))) 
         OR 
-        (p_titolo IS NOT NULL AND p_id_autore IS NOT NULL AND D.titolo LIKE CONCAT('%', p_titolo, '%') AND C.id_autore = p_id_autore AND D.id = C.id_disco))
+        (p_titolo IS NOT NULL AND p_id_autore IS NOT NULL AND D.titolo LIKE CONCAT('%', p_titolo, '%') AND ((C.id_autore = p_id_autore AND D.id = C.id_disco) OR (D.id_autore = p_id_autore))))
 		AND 
         ((p_includi_private = 1 AND EXISTS (SELECT * FROM Copia C WHERE C.id_disco = D.id AND C.id_collezione IN (SELECT id FROM Collezione WHERE id_collezionista = p_id_collezionista)))
 		OR 
