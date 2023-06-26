@@ -75,7 +75,7 @@ CALL InserisciDisco("8032529710025","Vado al massimo", 1982, "Carosello","CD","V
 CALL InserisciDisco("8034125847372","Bollicine", 1983, "Carosello", "Vinile", "Vasco Rossi","Pop");
 CALL AggiungiGenereAlDisco("Blues","0602557149463");
 
-#CALL AggiungiAutoreAlDisco("Vasco Rossi","0834738293948","Testo");
+CALL AggiungiAutoreAlDisco("Vasco Rossi","0834738293948","Testo");
 
   
 CALL TracciaInDisco("ITQ002300239","0834738293948"); # Mon Amour  in  Mon Amour

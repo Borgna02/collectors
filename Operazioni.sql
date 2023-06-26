@@ -39,7 +39,7 @@ DROP PROCEDURE IF EXISTS DischiAutoriSec$$
 
 CREATE PROCEDURE DischiAutoriSec()
 BEGIN
-	SELECT D.titolo, D.EAN, A.nomeDarte AS "Autore Secondario", C.nome_tipo AS "Tipo" FROM Disco D, Autore A, Collabora C WHERE D.id = C.id_disco AND C.id_autore = A.id;
+	SELECT D.titolo, D.EAN, D.nome_formato, A.nomeDarte AS "Autore Secondario", C.nome_tipo AS "Tipo" FROM Disco D, Autore A, Collabora C WHERE D.id = C.id_disco AND C.id_autore = A.id;
 END$$
 
 -- Stampa ogni coppia disco-autore
