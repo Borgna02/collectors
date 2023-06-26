@@ -42,6 +42,14 @@ BEGIN
 	SELECT D.titolo, D.EAN, A.nomeDarte AS "Autore Secondario", C.nome_tipo AS "Tipo" FROM Disco D, Autore A, Collabora C WHERE D.id = C.id_disco AND C.id_autore = A.id;
 END$$
 
+-- Stampa ogni coppia disco-autore
+DROP PROCEDURE IF EXISTS DischiAutori$$
+
+CREATE PROCEDURE DischiAutori()
+BEGIN
+	SELECT D.titolo, D.EAN, D.nome_formato, A.nomeDarte FROM Disco D, Autore A WHERE D.id_autore = A.id; 
+END$$
+
 -- Stampa ogni coppia traccia-autore secondario
 DROP PROCEDURE IF EXISTS TracceAutoriSec$$
 
@@ -107,6 +115,8 @@ BEGIN
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Non esiste un autore con questo nome d\'arte';
 	ELSEIF (SELECT * FROM Genere WHERE nome = p_nome_genere_principale) IS NULL THEN
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Il genere indicato non esiste';
+	ELSEIF (SELECT * FROM Formato WHERE nome = p_nome_Formato) IS NULL THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Il formato indicato non esiste';
 	ELSE
 		IF (SELECT * FROM Etichetta WHERE nome = p_nome_Etichetta) IS NULL THEN
 			INSERT INTO Etichetta VALUE (p_nome_Etichetta);

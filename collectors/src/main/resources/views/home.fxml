@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<HBox minHeight="500.0" minWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="borgna.daniele.controller.HomeController">
+<HBox minHeight="500.0" minWidth="700.0" prefHeight="601.0" prefWidth="854.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="borgna.daniele.controller.HomeController">
    <children>
       <VBox spacing="3.0" stylesheets="@styles.css">
          <Button fx:id="operazione1Button" onAction="#operazione1" text="OPERAZIONE 1" />
@@ -31,7 +31,7 @@
          <Button fx:id="operazione12bButton" onAction="#operazione12b" text="OPERAZIONE 12b" />
          <Button fx:id="operazione13Button" onAction="#operazione13" text="OPERAZIONE 13" />
       </VBox>
-      <VBox prefHeight="602.0" prefWidth="500.0">
+      <VBox prefHeight="602.0" prefWidth="657.0">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="7.0">
                <children>
@@ -92,8 +92,8 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="318.0" prefWidth="500.0" spacing="10.0">
                <children>
-                  <TextArea fx:id="primaTextArea" editable="false" prefHeight="200.0" prefWidth="200.0" promptText="Prima" />
-                  <TextArea fx:id="dopoTextArea" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" promptText="Dopo" />
+                  <TextArea fx:id="primaTextArea" editable="false" prefHeight="295.0" prefWidth="300.0" promptText="Prima" />
+                  <TextArea fx:id="dopoTextArea" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="295.0" prefWidth="301.0" promptText="Dopo" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">

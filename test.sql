@@ -6,6 +6,8 @@ CALL TracciaInDisco("GBUM71604197","0834738293948");
 
 CALL DischiTracce();
 
+CALL DischiAutori();
+
 CALL Condivisioni();
 
 
@@ -40,6 +42,8 @@ CALL TrackList("0834738293948");
 CALL CollezioniCopie;
 CALL ContaBraniByAutore("Vasco Rossi");
 CALL TempoBraniByAutore("Zef");
+
+CALL CopiaInCollezione("Prova","234239048230");
 
 CALL ContaCollezioni();
 
